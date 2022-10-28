@@ -35,75 +35,23 @@ for card_url in get_url():
   anime_episod_all = anime_sheets.select_one('.pmovie__genres:nth-child(2) > .anime-r').text.partition(' ')[2][3:]
   anime_season = anime_sheets.select_one('.pmovie__genres:nth-child(3) > .anime-r > a').text
   anime_type = anime_sheets.select_one('.pmovie__genres:nth-child(4) > .anime-r > a').text
-  anime_genre = anime_sheets.select_one('.pmovie__genres:nth-child(5) > .anime-r').text
+
+  anime_genre = anime_sheets.select('.pmovie__genres:nth-child(5) > .anime-r > a')
+  anime_genre_all = []
+  for i in anime_genre:
+    anime_genre_all.append(i.text)
+  
+  anime_translate = anime_sheets.select('.pmovie__genres:nth-child(7) > .anime-r > a')
+  anime_translate_all = []
+  for i in anime_translate:
+    anime_translate_all.append(i.text)
+
   anime_studio = anime_sheets.select_one('.pmovie__genres:nth-child(6) > .anime-r').text
-  anime_translate = anime_sheets.select_one('.pmovie__genres:nth-child(7) > .anime-r').text
   anime_cover = 'https://yummyanime.org' + soup.select_one('.pmovie__poster > img').get('data-src')
   anime_desc = soup.find('div', class_='page__text full-text clearfix').text
 
-  print(str(id) + '\n' + unixTime + '\n' +anime_tittle_ru + '\n' + anime_tittle_en + '\n' + anime_status + '\n' + anime_episod_last + '\n' + anime_episod_all + '\n' + anime_season +  '\n' + anime_type +  '\n' + anime_genre +  '\n' + anime_studio +  '\n' + anime_translate +  '\n' + anime_score +  '\n' + anime_frame +  '\n' + anime_cover +  '\n' + anime_desc + '\n\n')
-
   with open(f'{str(id)}.html', 'w') as html:
-    html.write('''<!DOCTYPE html><html lang="ru" class="page">@include('../partials/anime/head-anime.html',{title})<div class="main__container container">"""
-    @include('../partials/aside-nav.html')
-    <div class="main__content">
-      <section class="anime-page">
-        <div class="anime-page__tittle">
-          <h2 class="anime-page__tittle-ru"></h2>
-          <h3 class="anime-page__tittle-en"></h3>
-        </div>
-        <div class="anime-page__short">
-          <picture>
-            <img loading="lazy" src="../"
-              class="image anime-page__short-cover" width="275" height="380" alt="обложка аниме">
-          </picture>
-          <div class="anime-page__short-sheet">
-            <ul class="anime-page__short-sheet-list list-reset">
-              <li class="anime-page__short-sheet-list-item">
-                <span class="anime-page__short-sheet-list-item-name">Статус:</span>
-                <a class="anime-page__short-sheet-list-item-status anime-sheet-text link t-cap"
-                  href="#no-scrolling"></a>
-              </li>
-              <li class="anime-page__short-sheet-list-item">
-                <span class="anime-page__short-sheet-list-item-name">Эпизод:</span>
-                <span class="anime-page__short-sheet-list-item-ep anime-sheet-text"></span>
-              </li>
-              <li class="anime-page__short-sheet-list-item">
-                <span class="anime-page__short-sheet-list-item-name">Сезон:</span>
-                <a class="anime-page__short-sheet-list-item-season anime-sheet-text link t-cap" href="#no-scrolling"></a>
-              </li>
-              <li class="anime-page__short-sheet-list-item">
-                <span class="anime-page__short-sheet-list-item-name">Тип:</span>
-                <a class="anime-page__short-sheet-list-item-type anime-sheet-text link" href="#no-scrolling"></a>
-              </li>
-              <li class="anime-page__short-sheet-list-item">
-                <span class="anime-page__short-sheet-list-item-name">Жанр:</span>
-                <ul class="anime-page__short-sheet-list-item-genre list-reset anime-sheet-text li-link t-cap">
-                </ul>
-              </li>
-              <li class="anime-page__short-sheet-list-item">
-                <span class="anime-page__short-sheet-list-item-name">Студия:</span>
-                <a class="anime-page__short-sheet-list-item-studio anime-sheet-text link" href="#no-scrolling"></a>
-              </li>
-              <li class="anime-page__short-sheet-list-item">
-                <span class="anime-page__short-sheet-list-item-name">Озвучка:</span>
-                <ul class="anime-page__short-sheet-list-item-translate list-reset anime-sheet-text li-link">
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="anime-page__desc">
-          <h4 class="anime-page__desc-tittle">Описание аниме «<span class="anime-page__desc-tittle-anime"></span>»</h4>
-          <p class="anime-page__desc-text"></p>
-        </div>
-      </section>
-      <h2 class="player-tittle">Смотреть аниме «<span class="player-tittle__anime"></span>» без рекламы</h2>
-      <div class="player-light"></div>
-      <section class="player">
-        <div class="player__header">
-          <div class="player__header-btn"><button class="player__header-btn-player-2" name="Плеер">Внешний плеер</button><button class="player__header-btn-light" name="Выключить свет">Выключить свет</button><a class="player__header-btn-prob" href="tg://resolve?domain=yuutacn">Сообщить о проблеме</a></div><div class="player__header-social"><p class="player__header-social-view">Смотрят:&NonBreakingSpace;<spanclass="header__player-social-view-span">0</span>&NonBreakingSpace;анимешников</p></div></div><iframe class="player__video" src="../" width="607"height="360" frameborder="0" AllowFullScreen allow="autoplay *; fullscreen *"></iframe></section></div></div></main>@include('../partials/footer.html')</div></body></html>
-    '''.format(title={'title':f'{anime_tittle_ru}'}))
+    html.write('''<!DOCTYPE html><html lang="ru" class="page">@include('../partials/anime/head-anime.html',{title})<div class="main__container container">@include('../partials/aside-nav.html')<div class="main__content"><section class="anime-page"><div class="anime-page__tittle"><h2 class="anime-page__tittle-ru"></h2><h3 class="anime-page__tittle-en"></h3></div><div class="anime-page__short"><picture><img loading="lazy" src="../"class="image anime-page__short-cover" width="275" height="380" alt="обложка аниме"></picture><div class="anime-page__short-sheet"><ul class="anime-page__short-sheet-list list-reset"><li class="anime-page__short-sheet-list-item"><span class="anime-page__short-sheet-list-item-name">Статус:</span><a class="anime-page__short-sheet-list-item-status anime-sheet-text link t-cap"href="#no-scrolling"></a></li><li class="anime-page__short-sheet-list-item"><span class="anime-page__short-sheet-list-item-name">Эпизод:</span><span class="anime-page__short-sheet-list-item-ep anime-sheet-text"></span></li><li class="anime-page__short-sheet-list-item"><span class="anime-page__short-sheet-list-item-name">Сезон:</span><a class="anime-page__short-sheet-list-item-season anime-sheet-text link t-cap" href="#no-scrolling"></a></li><li class="anime-page__short-sheet-list-item"><span class="anime-page__short-sheet-list-item-name">Тип:</span><a class="anime-page__short-sheet-list-item-type anime-sheet-text link" href="#no-scrolling"></a></li><li class="anime-page__short-sheet-list-item"><span class="anime-page__short-sheet-list-item-name">Жанр:</span><ul class="anime-page__short-sheet-list-item-genre list-reset anime-sheet-text li-link t-cap"></ul></li><li class="anime-page__short-sheet-list-item"><span class="anime-page__short-sheet-list-item-name">Студия:</span><a class="anime-page__short-sheet-list-item-studio anime-sheet-text link" href="#no-scrolling"></a></li><li class="anime-page__short-sheet-list-item"><span class="anime-page__short-sheet-list-item-name">Озвучка:</span><ul class="anime-page__short-sheet-list-item-translate list-reset anime-sheet-text li-link"></ul></li></ul></div></div><div class="anime-page__desc"><h4 class="anime-page__desc-tittle">Описание аниме «<span class="anime-page__desc-tittle-anime"></span>»</h4><p class="anime-page__desc-text"></p></div></section><h2 class="player-tittle">Смотреть аниме «<span class="player-tittle__anime"></span>» без рекламы</h2><div class="player-light"></div><section class="player"><div class="player__header"><div class="player__header-btn"><button class="player__header-btn-player-2" name="Плеер">Внешний плеер</button><button class="player__header-btn-light" name="Выключить свет">Выключить свет</button><a class="player__header-btn-prob" href="tg://resolve?domain=yuutacn">Сообщить о проблеме</a></div><div class="player__header-social"><p class="player__header-social-view">Смотрят:&NonBreakingSpace;<spanclass="header__player-social-view-span">0</span>&NonBreakingSpace;анимешников</p></div></div><iframe class="player__video" src="../" width="607"height="360" frameborder="0" AllowFullScreen allow="autoplay *; fullscreen *"></iframe></section></div></div></main>@include('../partials/footer.html')</div></body></html>'''.format(title={'title':f'{anime_tittle_ru}'}))
 
   with open('anime.txt', 'a') as anime_list:
     anime_list.write(str({
@@ -121,12 +69,12 @@ for card_url in get_url():
         "all": anime_episod_all,
         "last": anime_episod_last
       },
-      "translate": [anime_translate],
+      "translate": anime_translate_all,
       "season": anime_season,
       "status": anime_status,
       "type": anime_type,
       "studio": anime_studio,
-      "genre": [anime_genre],
+      "genre": anime_genre_all,
       "cover": anime_cover,
       "desc": anime_desc,
       }))
