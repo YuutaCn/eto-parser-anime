@@ -36,7 +36,6 @@ for card_url in get_url():
 
   anime_score = soup.find('div', 'ratingscore-anime').text.split(' ', 1)[0]
   anime_frame = frame_find(soup.find('iframe'))
-  print(anime_frame)
   anime_tittle_ru = soup.find("h1").text
   anime_tittle_en = text_find(soup.find("div", class_='pmovie__original-title'))
   anime_sheets = soup.find('header', class_='page__subcol-main flex-grow-1 d-flex fd-column')
@@ -50,8 +49,6 @@ for card_url in get_url():
   anime_genre_all = []
   for i in anime_genre:
     anime_genre_all.append(i.text)
-  
-  print (anime_season)
   
   anime_translate = anime_sheets.select('.pmovie__genres:nth-child(7) > .anime-r > a')
   anime_translate_all = []
